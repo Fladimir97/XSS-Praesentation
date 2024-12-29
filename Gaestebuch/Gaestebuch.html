@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+        #message {
+            width: 100%;
+            height: 100px;
+        }
+        .flex-container {
+            width: 50%;
+            height: auto;
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            grid-template-rows: auto auto;
+            gap: 10px; 
+        }
+        .flex-item {
+            height: 100%; 
+            display: flex; 
+            justify-content: left; 
+            padding: 10px;
+            box-sizing: border-box; 
+        }
+        button {
+            grid-column: span 2; 
+            padding: 10px; 
+        }
+    </style>
+    <title>🥨 Bäckerei Albstadt 🍞 Gästebuch</title>
+    
+    <script>
+        function absenden(){
+            let name = document.getElementById("name");
+            let nachricht = document.getElementById("message")
+            let tagIdNr = document.getElementsByTagName("li").length; 
+            const neuerKommentar = document.createElement("li");
+            neuerKommentar.id = `Kommentar_${tagIdNr}`;
+            neuerKommentar.innerHTML = `<b>Name: </b>${name.value}<br>
+                                        <b>Nachricht: </b>${nachricht.value}<br>`;
+            const Gaestebuch = document.getElementById("guestbook-entries");
+            Gaestebuch.appendChild(neuerKommentar);
+            name.value = "";
+            nachricht.value = "";
+            console.log("Fertig")
+            executeScripts()
+
+        }
+        function executeScripts(){
+            const scriptTags = document.getElementsByTagName("script");
+            for (let i = 0; i < scriptTags.length; i++){
+                aktuellerTag = scriptTags[i]
+                eval(aktuellerTag.innerHTML)
+            }
+        }
+    </script>
+</head>
+<body>
+    <header id="ueberschrift">
+        <h1>🥨 Bäckerei Albstadt 🍞 Gästebuch</h1>
+        <div>Liebe Gäste, wir freuen uns auf Ihr konstruktives Feedback:</div>
+    </header>
+
+    <main>
+        <section id="guestbook-form">
+            <h2>Kommentar hinzufügen</h2>
+                <div class="flex-container">
+                <div class="flex-item">
+                    <label for="name">Name:</label>
+                </div>
+                <div class="flex-item">
+                    <input type="text" id="name" name="name">
+                </div>
+                <div class="flex-item">
+                    <label for="message">Nachricht:</label>
+                </div>
+                <div class="flex-item">
+                    <textarea id="message" name="message" ></textarea>
+                </div>
+                <div>
+
+                <button onclick=absenden()>Eintrag speichern</button>
+            
+        </section>
+
+        <section >
+            <h2>Kommentare</h2>
+            <ul id="guestbook-entries">
+                <li id="Kommentar_0">
+                    <b>Name: </b>Max Mustermann<br>
+                    <b>Nachricht: </b>Tolle Brötchen.
+                </li>
+
+            </ul>
+        </section>
+
+    </main>
+
+</body>
+</html>

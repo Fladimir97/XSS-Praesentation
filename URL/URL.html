@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>🏛️ Stadtarchiv Albstadt 📚</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+        textarea {
+            width:500px;
+            height: 50px;
+        }
+        button {
+            grid-column: span 2; 
+            padding: 10px; 
+        }
+        form {
+            display: flex; 
+            align-items: center; 
+            }
+
+        label {
+            margin-right: 10px; /* Abstand zwischen Label und Textarea */
+            }
+        
+    </style>
+    <script>
+        function executeScripts(){
+            const scriptTags = document.getElementsByTagName("script");
+            for (let i = 0; i < scriptTags.length; i++){
+                aktuellerTag = scriptTags[i]
+                eval(aktuellerTag.innerHTML)
+            }
+        }
+        function addParameterToURL(param, value) {
+            const currentURL = new URL(window.location.href);
+            currentURL.searchParams.set(param, value);
+            window.history.pushState({}, '', currentURL);
+        }
+
+    </script>
+
+    <script>
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const suchwort = params.get('suchw');
+            if (suchwort != null) {
+                document.getElementById('suchwort').value = suchwort;
+                console.log(suchwort);
+                submit()
+            }
+            
+            }
+            
+    </script>
+    <script>
+        function submit(){
+            const Suchfeld = document.getElementById("suchwort");
+            let Eingabe = Suchfeld.value;
+            document.getElementById("ergebnis").innerHTML = Eingabe;
+            Suchfeld.value = "";
+            executeScripts()
+            addParameterToURL("suchw", Eingabe)
+        }
+       
+    </script>
+
+</head>
+<body>
+    <h1>🏛️ Stadtarchiv Albstadt 📚</h1>
+    <div>Hier finden Sie die wichtigesten Informationen aus unseren Beständen:</div>
+    <h2>Archivsuche</h2>
+    <form>
+        <label>Suchbegriff:</label>
+        <textarea id="suchwort"></textarea>
+    </form><br>
+    <button onclick=submit()>Suchen</button>
+    <p><strong>Deine Ergebnisse zum Thema:</strong> <span id="ergebnis"></span></p>
+</body>
+</html>
